@@ -43,6 +43,7 @@ function displayLibrary(){
 
         text = document.createElement("p");
         text.textContent = "UUID: " + book.id;
+        text.className = "unique-id";
         bookCard.appendChild(text);
 
         document.body.appendChild(bookCard);

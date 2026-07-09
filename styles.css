@@ -1,0 +1,13 @@
+.book-card{
+    display: inline-block;
+
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: lightgray;
+
+    padding: 0px 8px;
+}
+
+.unique-id{
+    font-size: 8px;
+}
