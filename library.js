@@ -9,6 +9,21 @@ function Book(title, author, pages, read, id){
     this.read = read;
 
     this.id = id;
+
+    this.changeReadStatus = function(event){
+        let bookCard = event.target.parentElement;
+
+        let book = myLibrary.find(item => item.id === bookCard.id);
+        book.read = !book.read;
+        let readStatus = bookCard.querySelector('.read-status');
+        readStatus.textContent = "Read?: ";
+        if(book.read){
+            readStatus.textContent += "✔️";
+        }
+        else{
+            readStatus.textContent += "❌";
+        }
+    }
 }
 
 function addBookToLibrary(title, author, pages, read){
@@ -39,6 +54,7 @@ function displayBook(book){
     bookCard.appendChild(text);
 
     text = document.createElement("p");
+    text.className = "read-status";
     text.textContent = "Read?: ";
     if(book.read){
         text.textContent += "✔️";
@@ -58,6 +74,11 @@ function displayBook(book){
     removeBtn.addEventListener('click', removeBook);
     removeBtn.textContent = "Remove";
     bookCard.appendChild(removeBtn);
+
+    let changeBtn = document.createElement("button");
+    changeBtn.addEventListener('click', book.changeReadStatus);
+    changeBtn.textContent = "Change Read Status";
+    bookCard.appendChild(changeBtn);
 
     DISPLAY.appendChild(bookCard);
 }
@@ -79,7 +100,7 @@ function processForm(event){
     event.preventDefault();
     let form = event.target.form;
 
-    addBookToLibrary(form.elements.title.value, form.elements.author.value, form.elements.pages.value, form.elements.read.value);
+    addBookToLibrary(form.elements.title.value, form.elements.author.value, form.elements.pages.value, form.elements.read.checked);
     displayBook(myLibrary.at(-1));
 }
 
