@@ -8,7 +8,26 @@
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-    
+    <div class="new-book">
+        <form>
+            <label for="title" class="form-label"> Book Title: </label>
+            <input type="text" class="form-input" id="title" name="title">
+
+            <label for="author" class="form-label"> Book Author: </label>
+            <input type="text" class="form-input" id="author" name="author">
+
+            <label for="pages" class="form-label"> Book Pages: </label>
+            <input type="number" class="form-input" id="pages" name="pages">
+
+            <label for="read" class="form-label"> Read Book? </label>
+            <input type="checkbox" class="form-input" id="read" name="read">
+
+            <button id="new"> Add Book </button>
+        </form>
+    </div>
+
+    <div class="books-display"></div>
+
     <script src="library.js"></script>
 </body>
 </html>

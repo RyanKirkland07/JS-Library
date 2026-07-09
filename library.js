@@ -51,4 +51,5 @@ function displayLibrary(){
 }
 
 addBookToLibrary("book title", "ryan", 999, true);
+addBookToLibrary("another book", "john", 250, false);
 displayLibrary();
