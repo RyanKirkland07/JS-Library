@@ -1,4 +1,6 @@
 const myLibrary = [];
+const DISPLAY = document.querySelector(".books-display");
+const ADD_BTN = document.querySelector("#new");
 
 function Book(title, author, pages, read, id){
     this.title = title;
@@ -16,40 +18,74 @@ function addBookToLibrary(title, author, pages, read){
 
 function displayLibrary(){
     for(book of myLibrary){
-        let bookCard = document.createElement("div");
-        bookCard.className = "book-card";
-
-        let text = document.createElement("h1")
-        text.textContent = book.title;
-        bookCard.appendChild(text);
-
-        text = document.createElement("h2");
-        text.textContent = "by, " + book.author;
-        bookCard.appendChild(text);
-
-        text = document.createElement("p");
-        text.textContent = book.pages + " pages.";
-        bookCard.appendChild(text);
-
-        text = document.createElement("p");
-        text.textContent = "Read?: ";
-        if(book.read){
-            text.textContent += "✔️";
-        }
-        else{
-            text.textContent += "❌";
-        }
-        bookCard.appendChild(text);
-
-        text = document.createElement("p");
-        text.textContent = "UUID: " + book.id;
-        text.className = "unique-id";
-        bookCard.appendChild(text);
-
-        document.body.appendChild(bookCard);
+        displayBook(book);
     }
 }
 
+function displayBook(book){
+    let bookCard = document.createElement("div");
+    bookCard.className = "book-card";
+
+    let text = document.createElement("h1")
+    text.textContent = book.title;
+    bookCard.appendChild(text);
+
+    text = document.createElement("h2");
+    text.textContent = "by, " + book.author;
+    bookCard.appendChild(text);
+
+    text = document.createElement("p");
+    text.textContent = book.pages + " pages.";
+    bookCard.appendChild(text);
+
+    text = document.createElement("p");
+    text.textContent = "Read?: ";
+    if(book.read){
+        text.textContent += "✔️";
+    }
+    else{
+        text.textContent += "❌";
+    }
+    bookCard.appendChild(text);
+
+    text = document.createElement("p");
+    text.textContent = "UUID: " + book.id;
+    text.className = "unique-id";
+    bookCard.id = book.id;
+    bookCard.appendChild(text);
+
+    let removeBtn = document.createElement("button");
+    removeBtn.addEventListener('click', removeBook);
+    removeBtn.textContent = "Remove";
+    bookCard.appendChild(removeBtn);
+
+    DISPLAY.appendChild(bookCard);
+}
+
+function removeBook(event){
+    let book = event.target.parentElement;
+    let removeID = book.id;
+    let removeIDX = myLibrary.indexOf(myLibrary.find(item => item.id === removeID));
+    myLibrary.splice(removeIDX, 1);
+
+    book.remove();
+
+    for(books of myLibrary){
+        console.log(books.title);
+    }
+}
+
+function processForm(event){
+    event.preventDefault();
+    let form = event.target.form;
+
+    addBookToLibrary(form.elements.title.value, form.elements.author.value, form.elements.pages.value, form.elements.read.value);
+    displayBook(myLibrary.at(-1));
+}
+
+ADD_BTN.addEventListener('click', processForm);
+
 addBookToLibrary("book title", "ryan", 999, true);
 addBookToLibrary("another book", "john", 250, false);
+
 displayLibrary();
