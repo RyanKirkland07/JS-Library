@@ -2,21 +2,48 @@ const myLibrary = [];
 const DISPLAY = document.querySelector(".books-display");
 const ADD_BTN = document.querySelector("#new");
 
-function Book(title, author, pages, read, id){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Book{
+    #title;
+    #author;
+    #pages;
+    #read;
+    #id;
 
-    this.id = id;
+    constructor(title, author, pages, read, id){
+        this.#title = title;
+        this.#author = author;
+        this.#pages = pages;
+        this.#read = read;
+        this.#id = id;
+    }
 
-    this.changeReadStatus = function(event){
+    get title(){
+        return this.#title;
+    }
+    get author(){
+        return this.#author;
+    }
+    get pages(){
+        return this.#pages;
+    }
+    get read(){
+        return this.#read;
+    }
+    get id(){
+        return this.#id;
+    }
+
+    set read(read){
+        this.#read = read;
+    }
+
+    changeReadStatus(event){
         let bookCard = event.target.parentElement;
-
+        
         let book = myLibrary.find(item => item.id === bookCard.id);
         book.read = !book.read;
         let readStatus = bookCard.querySelector('.read-status');
-        readStatus.textContent = "Read?: ";
+        readStatus.textContent = "Read?: "
         if(book.read){
             readStatus.textContent += "✔️";
         }
